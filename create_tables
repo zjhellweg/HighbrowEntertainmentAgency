@@ -3,14 +3,14 @@ GO
 
 CREATE TABLE Agents
 (
-AgentID varchar(4),
+AgentID varchar(4) CHECK (AgentID like 'A%') NOT NULL UNIQUE,
 AgentFirstName varchar(50),
 AgentLastName varchar(50),
 AgentAddress varchar(50),
 AgentCity varchar(50),
 AgentState varchar(2),
 AgentZip int,
-Phone varchar(10),
+AgentPhone varchar(10),
 DateHired date,
 Salary money,
 CommissionRate decimal,
@@ -20,30 +20,30 @@ GO
 
 CREATE TABLE Customers
 (
-CustID varchar(8),
+CustID varchar(8) CHECK (CustID like 'C%') NOT NULL UNIQUE,
 CustFirstName varchar(50),
 CustLastName varchar(50),
 CustAddress varchar(50),
-CustAptNum varchar(50),
+CustAptNum varchar(50) NULL,
 CustState char(2),
 CustAreaCode varchar(10),
 CustPhoneNum varchar(50),
-CONSTRAINT PK_Customers PRIMARY KEY (CustID),
+CONSTRAINT PK_Customers PRIMARY KEY (CustID)
 );
 GO
 
 
 CREATE TABLE Groups
 ( 
-GroupID varchar(8),
+GroupID varchar(8) CHECK (GroupID like 'G%') NOT NULL UNIQUE,
 GroupStageName char(100),
-GroupSSN varchar(11),
+GroupSSN varchar(11) UNIQUE,
 GroupAddress varchar(100),
 GroupState char(2),
 GroupZip int,
-GroupPhone varchar(8),
-GroupPage varchar(50),
-GroupEmail varchar(100),
+GroupPhone varchar(8) UNIQUE,
+GroupPage varchar(50) NULL,
+GroupEmail varchar(100) NULL,
 GroupDateEntered date
 CONSTRAINT PK_Groups PRIMARY KEY (GroupID)
 );
@@ -51,7 +51,7 @@ GO
 
 CREATE TABLE Performers
 (
-PerfID VARCHAR (8) NOT NULL UNIQUE,
+PerfID VARCHAR (8) CHECK (PerfID like 'P%') NOT NULL UNIQUE,
 PerfFirstName VARCHAR(50),
 PerfLastName VARCHAR(50),
 PerfPhoneNumber VARCHAR(50),
@@ -62,7 +62,7 @@ GO
 
 CREATE TABLE MusicStyle
 (
-StyleID varchar(4),
+StyleID varchar(4) CHECK (StyleID like 'M%') NOT NULL UNIQUE,
 StyleName varchar(50),
 CONSTRAINT PK_MusicStyle PRIMARY KEY (StyleID)
 );
@@ -70,7 +70,7 @@ GO
 
 Create Table Engagements
 (
-EngagementID VARCHAR(8),
+EngagementID VARCHAR(8) CHECK (EngagementID like 'EN%') NOT NULL UNIQUE,
 StartDate SmallDateTime,
 EndDate SmallDateTime,
 ContractPrice Money,
@@ -86,8 +86,8 @@ GO
 
 CREATE TABLE GroupMemberList
 (
-GroupID varchar(8),
-PerfID varchar(8),
+GroupID varchar(8) CHECK (GroupID like 'G%') NOT NULL,
+PerfID varchar(8) CHECK (PerfID like 'P%') NOT NULL,
 Status int,
 CONSTRAINT PK_GroupMemberList PRIMARY KEY(GroupID, PerfID),
 CONSTRAINT FK_Groups2 FOREIGN KEY(GroupID) REFERENCES Groups(GroupID),
@@ -97,8 +97,8 @@ GO
 
 CREATE TABLE MusicalPreferences
 (
-CustID varchar(8),
-StyleID varchar(4),
+CustID varchar(8) CHECK (CustID like 'C%') NOT NULL,
+StyleID varchar(4) CHECK (StyleID like 'M%') NOT NULL,
 PreferenceRating int,
 CONSTRAINT PK_MusicalPreferences PRIMARY KEY(CustID, StyleID),
 CONSTRAINT FK_Customers2 FOREIGN KEY(CustID) REFERENCES Customers(CustID),
@@ -108,8 +108,8 @@ GO
 
 CREATE TABLE GroupByStyle
 (
-GroupID varchar(8),
-StyleID varchar(4),
+GroupID varchar(8) CHECK (GroupID like 'G%') NOT NULL,
+StyleID varchar(4) CHECK (StyleID like 'M%') NOT NULL,
 StyleStrength int,
 CONSTRAINT PK_GroupByStyle PRIMARY KEY (GroupID,StyleID),
 CONSTRAINT FK_Groups3 FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
