@@ -1,0 +1,22 @@
+Use HighbrowEntertainmentAgency
+Go
+
+CREATE TABLE MusicStyle
+(
+	StyleID varchar(8),
+	StyleName varchar(50),
+	CONSTRAINT PK_MusicStyle PRIMARY KEY (StyleID)
+);
+GO
+
+CREATE TABLE GroupByStyle
+(
+	GroupID varchar(8),
+	StyleID varchar(8),
+	StyleStrength varchar(50),
+	CONSTRAINT PK_GroupByStyle PRIMARY KEY (GroupID,StyleID),
+	CONSTRAINT FK_Groups FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
+	CONSTRAINT FK_MusicStyle FOREIGN KEY (StyleID) REFERENCES MusicStyle(StyleID)
+
+);
+GO
