@@ -1,0 +1,10 @@
+CREATE TABLE MusicalPreferences
+(
+CustID varchar(6),
+StyleID varchar(4),
+PreferenceRating int,
+CONSTRAINT PK_MusicalPreferences PRIMARY KEY(CustID, StyleID),
+CONSTRAINT FK_MusicalPreferences FOREIGN KEY(CustID) REFERENCES Customers(CustID),
+CONSTRAINT FK_MusicalPreferences FOREIGN KEY(StyleID) REFERENCES MusicStyle(StyleID)
+);
+GO
