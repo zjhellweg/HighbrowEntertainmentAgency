@@ -1,0 +1,13 @@
+USE HighbrowEntertainmentAgency
+GO
+CREATE TABLE Performers
+(
+	PerfID VARCHAR (8) NOT NULL UNIQUE,
+	PerfFirstName VARCHAR(50),
+	PerfLastName VARCHAR(50),
+	PerfPhoneNumber VARCHAR(50),
+	Gender CHARACTER(1),
+	CONSTRAINT PK_Performers primary key (PerfID ),
+	);
+
+	GO 
