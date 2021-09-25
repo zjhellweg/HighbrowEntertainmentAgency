@@ -90,7 +90,7 @@ GroupID varchar(8),
 PerfID varchar(8),
 Status int,
 CONSTRAINT PK_GroupMemberList PRIMARY KEY(GroupID, PerfID),
-CONSTRAINT FK_Groups FOREIGN KEY(GroupID) REFERENCES Groups(GroupID),
+CONSTRAINT FK_Groups2 FOREIGN KEY(GroupID) REFERENCES Groups(GroupID),
 CONSTRAINT FK_Performers FOREIGN KEY(PerfID)  REFERENCES Performers(PerfID)
 );
 GO
@@ -101,7 +101,7 @@ CustID varchar(8),
 StyleID varchar(4),
 PreferenceRating int,
 CONSTRAINT PK_MusicalPreferences PRIMARY KEY(CustID, StyleID),
-CONSTRAINT FK_Customers FOREIGN KEY(CustID) REFERENCES Customers(CustID),
+CONSTRAINT FK_Customers2 FOREIGN KEY(CustID) REFERENCES Customers(CustID),
 CONSTRAINT FK_MusicStyle FOREIGN KEY(StyleID) REFERENCES MusicStyle(StyleID)
 );
 GO
@@ -112,8 +112,8 @@ GroupID varchar(8),
 StyleID varchar(4),
 StyleStrength int,
 CONSTRAINT PK_GroupByStyle PRIMARY KEY (GroupID,StyleID),
-CONSTRAINT FK_Groups FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
-CONSTRAINT FK_MusicStyle FOREIGN KEY (StyleID) REFERENCES MusicStyle(StyleID)
+CONSTRAINT FK_Groups3 FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
+CONSTRAINT FK_MusicStyle2 FOREIGN KEY (StyleID) REFERENCES MusicStyle(StyleID)
 
 );
 GO
