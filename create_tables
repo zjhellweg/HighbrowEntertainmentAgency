@@ -4,16 +4,16 @@ GO
 CREATE TABLE Agents
 (
 AgentID varchar(4) CHECK (AgentID like 'A%') NOT NULL UNIQUE,
-AgentFirstName varchar(50),
-AgentLastName varchar(50),
-AgentAddress varchar(50),
-AgentCity varchar(50),
-AgentState varchar(2),
-AgentZip int,
-AgentPhone varchar(10),
-DateHired date,
-Salary money,
-CommissionRate decimal,
+AgentFirstName varchar(50) NOT NULL,
+AgentLastName varchar(50) NOT NULL,
+AgentAddress varchar(50) NOT NULL,
+AgentCity varchar(50) NOT NULL,
+AgentState varchar(2) NOT NULL,
+AgentZip int NOT NULL,
+AgentPhone varchar(10) NOT NULL,
+DateHired date NOT NULL,
+Salary money NOT NULL,
+CommissionRate decimal NOT NULL,
 CONSTRAINT PK_Agents Primary Key (AgentID),
 );
 GO
@@ -21,13 +21,13 @@ GO
 CREATE TABLE Customers
 (
 CustID varchar(8) CHECK (CustID like 'C%') NOT NULL UNIQUE,
-CustFirstName varchar(50),
-CustLastName varchar(50),
-CustAddress varchar(50),
+CustFirstName varchar(50) NOT NULL,
+CustLastName varchar(50) NOT NULL,
+CustAddress varchar(50) NOT NULL,
 CustAptNum varchar(50) NULL,
-CustState char(2),
-CustAreaCode varchar(10),
-CustPhoneNum varchar(50),
+CustState char(2) NOT NULL,
+CustAreaCode varchar(10) NOT NULL,
+CustPhoneNum varchar(50) NOT NULL,
 CONSTRAINT PK_Customers PRIMARY KEY (CustID)
 );
 GO
@@ -36,15 +36,15 @@ GO
 CREATE TABLE Groups
 ( 
 GroupID varchar(8) CHECK (GroupID like 'G%') NOT NULL UNIQUE,
-GroupStageName char(100),
-GroupSSN varchar(11) UNIQUE,
-GroupAddress varchar(100),
-GroupState char(2),
-GroupZip int,
-GroupPhone varchar(8) UNIQUE,
+GroupStageName char(100) NOT NULL,
+GroupSSN varchar(11) UNIQUE NOT NULL,
+GroupAddress varchar(100) NOT NULL,
+GroupState char(2) NOT NULL,
+GroupZip int NOT NULL,
+GroupPhone varchar(8) UNIQUE NOT NULL,
 GroupPage varchar(50) NULL,
 GroupEmail varchar(100) NULL,
-GroupDateEntered date
+GroupDateEntered date NOT NULL,
 CONSTRAINT PK_Groups PRIMARY KEY (GroupID)
 );
 GO
@@ -52,18 +52,18 @@ GO
 CREATE TABLE Performers
 (
 PerfID VARCHAR (8) CHECK (PerfID like 'P%') NOT NULL UNIQUE,
-PerfFirstName VARCHAR(50),
-PerfLastName VARCHAR(50),
-PerfPhoneNumber VARCHAR(50),
-Gender CHARACTER(1),
-CONSTRAINT PK_Performers primary key (PerfID ),
+PerfFirstName VARCHAR(50) NOT NULL,
+PerfLastName VARCHAR(50) NOT NULL,
+PerfPhoneNumber VARCHAR(50) NOT NULL,
+Gender CHARACTER(1) NOT NULL,
+CONSTRAINT PK_Performers primary key (PerfID),
 );
 GO
 
 CREATE TABLE MusicStyle
 (
 StyleID varchar(4) CHECK (StyleID like 'M%') NOT NULL UNIQUE,
-StyleName varchar(50),
+StyleName varchar(50) NOT NULL,
 CONSTRAINT PK_MusicStyle PRIMARY KEY (StyleID)
 );
 GO
@@ -71,12 +71,12 @@ GO
 Create Table Engagements
 (
 EngagementID VARCHAR(8) CHECK (EngagementID like 'EN%') NOT NULL UNIQUE,
-StartDate SmallDateTime,
-EndDate SmallDateTime,
-ContractPrice Money,
-CustID VarChar(8),
-AgentID VarChar(4),
-GroupID VarChar(8)
+StartDate SmallDateTime NOT NULL,
+EndDate SmallDateTime NOT NULL,
+ContractPrice Money NOT NULL,
+CustID VarChar(8) NOT NULL,
+AgentID VarChar(4) NOT NULL,
+GroupID VarChar(8) NOT NULL,
 Constraint PK_Engagements Primary Key(EngagementID),
 Constraint FK_Customers Foreign Key(CustID) References Customers(CustID),
 Constraint FK_Groups Foreign Key(GroupID) References Groups(GroupID),
@@ -88,7 +88,7 @@ CREATE TABLE GroupMemberList
 (
 GroupID varchar(8) CHECK (GroupID like 'G%') NOT NULL,
 PerfID varchar(8) CHECK (PerfID like 'P%') NOT NULL,
-Status int,
+Status int NOT NULL,
 CONSTRAINT PK_GroupMemberList PRIMARY KEY(GroupID, PerfID),
 CONSTRAINT FK_Groups2 FOREIGN KEY(GroupID) REFERENCES Groups(GroupID),
 CONSTRAINT FK_Performers FOREIGN KEY(PerfID)  REFERENCES Performers(PerfID)
@@ -99,7 +99,7 @@ CREATE TABLE MusicalPreferences
 (
 CustID varchar(8) CHECK (CustID like 'C%') NOT NULL,
 StyleID varchar(4) CHECK (StyleID like 'M%') NOT NULL,
-PreferenceRating int,
+PreferenceRating int NOT NULL,
 CONSTRAINT PK_MusicalPreferences PRIMARY KEY(CustID, StyleID),
 CONSTRAINT FK_Customers2 FOREIGN KEY(CustID) REFERENCES Customers(CustID),
 CONSTRAINT FK_MusicStyle FOREIGN KEY(StyleID) REFERENCES MusicStyle(StyleID)
@@ -110,7 +110,7 @@ CREATE TABLE GroupByStyle
 (
 GroupID varchar(8) CHECK (GroupID like 'G%') NOT NULL,
 StyleID varchar(4) CHECK (StyleID like 'M%') NOT NULL,
-StyleStrength int,
+StyleStrength int NOT NULL,
 CONSTRAINT PK_GroupByStyle PRIMARY KEY (GroupID,StyleID),
 CONSTRAINT FK_Groups3 FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
 CONSTRAINT FK_MusicStyle2 FOREIGN KEY (StyleID) REFERENCES MusicStyle(StyleID)
