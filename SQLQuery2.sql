@@ -1,3 +1,6 @@
+USE HighbrowEntertainmentAgency
+GO
+
 CREATE TABLE Agents
 (AgentID varchar(50),
 AgentFirstName varchar(50),
@@ -9,6 +12,7 @@ AgentZip int,
 Phone varchar(10),
 DateHired date,
 Salary money,
-CommissionRate decimal
-)
-
+CommissionRate decimal,
+CONSTRAINT PK_Agents Primary Key (AgentID)
+);
+GO
